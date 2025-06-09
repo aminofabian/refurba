@@ -10,114 +10,125 @@ interface LogoProps {
 const Logo: React.FC<LogoProps> = ({ 
   className = '', 
   size = 'md', 
-  variant = 'full',
+  variant = 'text',
   color = 'brand'
 }) => {
   const sizeClasses = {
-    sm: 'h-8',
-    md: 'h-12',
-    lg: 'h-16',
-    xl: 'h-20'
+    sm: 'h-3',
+    md: 'h-4',
+    lg: 'h-5',
+    xl: 'h-6'
   };
 
   const colorSchemes = {
     brand: {
-      text: '#1e964c',
+      text: '#1e293b',
       accent: '#7dc7ee',
-      secondary: '#e2161f'
+      dot: '#1e964c'
     },
     white: {
       text: '#ffffff',
-      accent: '#f8fafc',
-      secondary: '#e2e8f0'
+      accent: '#ffffff',
+      dot: '#ffffff'
     },
     dark: {
       text: '#1e293b',
       accent: '#334155',
-      secondary: '#475569'
+      dot: '#475569'
     }
   };
 
   const colors = colorSchemes[color];
 
   const RefreshIcon = () => (
-    <svg viewBox="0 0 40 40" className="w-full h-full">
-      {/* Circular refresh arrows */}
-      <path
-        d="M20 8 C26.6 8 32 13.4 32 20"
-        stroke={colors.accent}
-        strokeWidth="3"
-        strokeLinecap="round"
-        fill="none"
-      />
-      <path
-        d="M32 20 C32 26.6 26.6 32 20 32"
-        stroke={colors.secondary}
-        strokeWidth="3"
-        strokeLinecap="round"
-        fill="none"
-      />
-      <path
-        d="M20 32 C13.4 32 8 26.6 8 20"
-        stroke={colors.accent}
-        strokeWidth="3"
-        strokeLinecap="round"
-        fill="none"
-      />
-      <path
-        d="M8 20 C8 13.4 13.4 8 20 8"
-        stroke={colors.secondary}
-        strokeWidth="3"
-        strokeLinecap="round"
-        fill="none"
-      />
-      
-      {/* Arrow heads */}
-      <polygon
-        points="28,12 32,16 28,20"
-        fill={colors.accent}
-      />
-      <polygon
-        points="12,28 8,24 12,20"
-        fill={colors.secondary}
-      />
-      
-      {/* Center dot */}
-      <circle
-        cx="20"
-        cy="20"
-        r="2"
-        fill={colors.text}
-      />
-    </svg>
+    <div className="relative group">
+      <svg viewBox="0 0 12 12" className="w-full h-full transform transition-transform duration-300 group-hover:rotate-180">
+        {/* Simple curved refresh arrow */}
+        <path
+          d="M2 6 A4 4 0 0 1 10 6"
+          stroke={colors.accent}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          fill="none"
+          className="drop-shadow-sm"
+          style={{
+            filter: 'drop-shadow(0 1px 2px rgba(125, 199, 238, 0.3))'
+          }}
+        />
+        
+        {/* Arrow head */}
+        <path
+          d="M8.5 4.5 L10 6 L8.5 7.5"
+          stroke={colors.accent}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+          className="drop-shadow-sm"
+          style={{
+            filter: 'drop-shadow(0 1px 2px rgba(125, 199, 238, 0.3))'
+          }}
+        />
+        
+        {/* Small accent dot */}
+        <circle
+          cx="2"
+          cy="6"
+          r="0.8"
+          fill={colors.dot}
+          className="group-hover:scale-125 transition-transform duration-300"
+          style={{
+            filter: `drop-shadow(0 1px 2px ${colors.dot}60)`
+          }}
+        />
+      </svg>
+    </div>
   );
 
   const LogoText = ({ standalone = false }: { standalone?: boolean }) => (
-    <div className={`flex items-center ${standalone ? 'justify-center' : ''}`}>
+    <div className={`flex items-center ${standalone ? 'justify-center' : ''} group`}>
       <span 
-        className="font-bold tracking-tight"
+        className="font-bold tracking-wide transition-all duration-300 group-hover:tracking-wider"
         style={{ 
           color: colors.text,
-          fontSize: standalone ? '1.5rem' : '1.25rem'
+          fontSize: standalone ? '1.75rem' : '1.5rem',
+          fontWeight: '700',
+          textShadow: '0 1px 2px rgba(0,0,0,0.1)',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
         }}
       >
-        re
+        REFURBS
       </span>
       <span 
-        className="font-bold tracking-tight"
+        className="ml-1 transition-all duration-300 group-hover:scale-125 group-hover:rotate-12"
         style={{ 
-          color: colors.accent,
-          fontSize: standalone ? '1.5rem' : '1.25rem'
+          color: colors.dot,
+          fontSize: standalone ? '1.75rem' : '1.5rem',
+          fontWeight: '700',
+          textShadow: `0 1px 3px ${colors.dot}40`,
+          transformOrigin: 'center'
         }}
       >
-        furbs
+        •
+      </span>
+      <span 
+        className="ml-1 font-bold tracking-wide transition-all duration-300 group-hover:tracking-wider"
+        style={{ 
+          color: colors.text,
+          fontSize: standalone ? '1.75rem' : '1.5rem',
+          fontWeight: '700',
+          textShadow: '0 1px 2px rgba(0,0,0,0.1)',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        }}
+      >
+        COM
       </span>
     </div>
   );
 
   if (variant === 'icon') {
     return (
-      <div className={`${sizeClasses[size]} ${className}`}>
+      <div className={`${sizeClasses[size]} ${className} cursor-pointer`}>
         <RefreshIcon />
       </div>
     );
@@ -125,14 +136,14 @@ const Logo: React.FC<LogoProps> = ({
 
   if (variant === 'text') {
     return (
-      <div className={`${className}`}>
+      <div className={`${className} cursor-pointer`}>
         <LogoText standalone />
       </div>
     );
   }
 
   return (
-    <div className={`flex items-center space-x-3 ${className}`}>
+    <div className={`flex items-center space-x-2 ${className} cursor-pointer transition-all duration-300 hover:scale-105`}>
       <div className={sizeClasses[size]}>
         <RefreshIcon />
       </div>

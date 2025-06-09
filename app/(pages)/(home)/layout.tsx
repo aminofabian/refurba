@@ -1,4 +1,6 @@
+'use client';
 import Navbar from "@/components/home/navbar";
+import Footer from "@/components/home/footer";
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -6,9 +8,13 @@ interface LayoutProps {
 
 function Layout({ children }: LayoutProps) {
     return (
-        <div>
+        <div className="flex flex-col min-h-screen">
             <Navbar />
-            {children}
+            <main className="flex-1">
+                {children}
+            </main>
+            <div className="md:hidden h-16" /> {/* Spacer for mobile nav */}
+            <Footer />
         </div>
     )
 }
