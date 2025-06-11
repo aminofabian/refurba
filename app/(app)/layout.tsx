@@ -5,7 +5,7 @@ import "./globals.css";
 const notoSans = Noto_Sans({
   weight: ['300', '400', '500', '700', '900'],
   subsets: ["latin"],
-  variable: "--font-outfit",
+  variable: "--font-noto-sans",
 });
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${notoSans.variable} font-outfit min-h-screen`}>
+      <body className={`${notoSans.variable} font-noto-sans min-h-screen`}>
         {children}
       </body>
     </html>
