@@ -16,7 +16,19 @@ const config: Config = {
         }
       },
       fontFamily: {
-        outline: ['var(--font-bungee-outline)']
+        outfit: ['var(--font-outfit)']
+      },
+      keyframes: {
+        'gradient-shift': {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        }
+      },
+      animation: {
+        'gradient-shift': 'gradient-shift 8s ease infinite',
+      },
+      backgroundSize: {
+        'gradient-size': '200% 200%',
       }
     }
   },

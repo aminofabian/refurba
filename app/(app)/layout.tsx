@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Noto_Sans } from "next/font/google";
 import "./globals.css";
 
-const poppins = Poppins({
-  weight: '400',
+const notoSans = Noto_Sans({
+  weight: ['300', '400', '500', '700', '900'],
   subsets: ["latin"],
-  variable: "--font-bungee-outline",
+  variable: "--font-noto-sans",
 });
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} font-outline min-h-screen`}>
+      <body className={`${notoSans.variable} font-outfit min-h-screen`}>
         {children}
       </body>
     </html>

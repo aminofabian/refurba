@@ -1,9 +1,11 @@
 import configPromise from '@/payload.config';
 import { getPayload } from 'payload';
+import { Category } from '@/payload-types';
 
 import Navbar from "@/components/home/navbar";
 import Footer from "@/components/home/footer";
 import { SearchFilters } from "@/app/(components)/search-filters";
+import { CustomCategory } from '@/lib/types';
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -21,18 +23,14 @@ async function Layout({ children }: LayoutProps) {
           exists: false,
         },
       },
+      sort: 'name'
     });
 
-    const formattedData = data.docs.map((doc) => ({
+    const formattedData: CustomCategory[] = data.docs.map((doc) => ({
         ...doc,
-        subcategories: {
-            ...doc.subcategories,
-            docs: doc.subcategories?.docs?.map((subcategory) => 
-                typeof subcategory === 'number' ? subcategory : {
-                    ...subcategory,
-                }
-            ) ?? []
-        }
+        subcategories: (doc.subcategories?.docs?.filter((subcategory): subcategory is Category => 
+            typeof subcategory !== 'number'
+        ) ?? []) as Category[]
     }));
 
     return (

@@ -39,16 +39,39 @@ function DesktopNavItem({ href, children, isActive }: NavItemProps) {
     return (
         <Link 
             href={href}
-            className={`px-3 py-2 rounded-md transition-all duration-200 font-medium relative group ${
-                isActive 
-                    ? 'text-brand font-semibold' 
-                    : 'text-slate-600 hover:text-brand'
-            }`}
+            className={`
+                relative px-5 py-2 font-medium transition-all duration-200
+                text-sm uppercase tracking-wide group/nav-item
+                ${isActive 
+                    ? 'text-brand' 
+                    : 'text-gray-600 hover:text-brand'
+                }
+            `}
         >
-            {children}
-            <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-brand transform origin-left transition-transform duration-200 ${
-                isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-            }`} />
+            {/* Border Layer */}
+            <div 
+                className={`absolute inset-0 ${isActive ? 'bg-brand/20' : 'bg-gray-200'}`}
+                style={{
+                    clipPath: 'polygon(90% 0, 100% 35%, 100% 100%, 10% 100%, 0 65%, 0 0)'
+                }}
+            />
+            
+            {/* Content Layer */}
+            <div 
+                className={`
+                    absolute inset-[1.5px] transition-all duration-200
+                    ${isActive 
+                        ? 'bg-white' 
+                        : 'bg-white group-hover/nav-item:bg-gray-50'
+                    }
+                `}
+                style={{
+                    clipPath: 'polygon(90% 0, 100% 35%, 100% 100%, 10% 100%, 0 65%, 0 0)'
+                }}
+            />
+
+            {/* Text Content */}
+            <span className="relative z-10">{children}</span>
         </Link>
     );
 }
@@ -70,7 +93,7 @@ function Navbar() {
                             />
                         </div>
 
-                        <div className="flex items-center space-x-1">
+                        <div className="flex items-center space-x-3">
                             {navItems.map((item) => (
                                 <DesktopNavItem
                                     key={item.href}
@@ -81,17 +104,58 @@ function Navbar() {
                                 </DesktopNavItem>
                             ))}
                             <div className="flex items-center gap-3 ml-6">
-                                <Button 
-                                    variant="ghost" 
-                                    className="text-slate-700 hover:text-brand hover:bg-brand/10"
-                                >
-                                    Log In
-                                </Button>
-                                <Button 
-                                    className="text-white hover:bg-gray-50 hover:text-[#1e964c] border-2 border-brand shadow-sm font-medium"
-                                >
-                                    Sell Your Digital Products
-                                </Button>
+                                {/* Login Button */}
+                                <div className="relative group/login">
+                                    {/* Border Layer */}
+                                    <div 
+                                        className="absolute inset-0 bg-gray-200"
+                                        style={{
+                                            clipPath: 'polygon(92% 0, 100% 25%, 100% 100%, 8% 100%, 0% 75%, 0 0)'
+                                        }}
+                                    />
+                                    <div 
+                                        className="
+                                            relative px-6 py-2 h-10 text-sm font-bold uppercase tracking-wide
+                                            transition-all duration-200 ease-in-out
+                                            bg-white overflow-visible cursor-pointer
+                                            hover:text-brand hover:bg-green-50
+                                            hover:shadow-[0_0_15px_rgba(30,150,76,0.3)]
+                                            -inset-[1.5px] flex items-center justify-center
+                                            text-gray-700
+                                        "
+                                        style={{
+                                            clipPath: 'polygon(92% 0, 100% 25%, 100% 100%, 8% 100%, 0% 75%, 0 0)'
+                                        }}
+                                    >
+                                        Log In
+                                    </div>
+                                </div>
+
+                                {/* Sell Button */}
+                                <div className="relative group/sell">
+                                    {/* Border Layer */}
+                                    <div 
+                                        className="absolute inset-0 bg-brand"
+                                        style={{
+                                            clipPath: 'polygon(92% 0, 100% 25%, 100% 100%, 8% 100%, 0% 75%, 0 0)'
+                                        }}
+                                    />
+                                    <div 
+                                        className="
+                                            relative px-6 py-2 h-10 text-sm font-bold uppercase tracking-wide border-2 border-brand bg-slate-100
+                                            transition-all duration-200 ease-in-out
+                                            bg-brand overflow-visible cursor-pointer
+                                            group-hover/sell:bg-white group-hover/sell:text-brand
+                                            hover:shadow-[0_0_15px_rgba(30,150,76,0.3)]
+                                            -inset-[1.5px] flex items-center justify-center
+                                        "
+                                        style={{
+                                            clipPath: 'polygon(92% 0, 100% 25%, 100% 100%, 8% 100%, 0% 75%, 0 0)'
+                                        }}
+                                    >
+                                        Sell Your Digital Products
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
