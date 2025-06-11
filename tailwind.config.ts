@@ -16,7 +16,7 @@ const config: Config = {
         }
       },
       fontFamily: {
-        outfit: ['var(--font-outfit)']
+        'noto-sans': ['var(--font-noto-sans)']
       },
       keyframes: {
         'gradient-shift': {

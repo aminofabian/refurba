@@ -117,32 +117,100 @@ const categories = [
     }
 ];
 
-
 const seed = async () => {
-    const payload = await getPayload({config});
-    for (const category of categories) {
-        const parentCategory = await payload.create({
-            collection: "categories",
-            data: {
-                name: category.name,
-                slug: category.slug,
-                color: "#1e964c",
-                parent: null,
-            },
-        });
-        for (const subcategory of category.subcategories || []) {
-            await payload.create({
+    try {
+        console.log("Starting seeding process...");
+        const payload = await getPayload({ config });
+
+        for (const category of categories) {
+            // Check if parent category already exists
+            const existingParent = await payload.find({
                 collection: "categories",
-                data: {
-                    name: subcategory.name,
-                    slug: subcategory.slug,
-                    color: "#1e964c",
-                    parent: parentCategory.id,
-                },
+                where: {
+                    slug: {
+                        equals: category.slug
+                    }
+                }
             });
+
+            let parentCategory;
+            if (existingParent.docs.length === 0) {
+                console.log(`Creating parent category: ${category.name}`);
+                parentCategory = await payload.create({
+                    collection: "categories",
+                    data: {
+                        name: category.name,
+                        slug: category.slug,
+                        color: "#1e964c",
+                        parent: null,
+                    },
+                });
+            } else {
+                console.log(`Parent category ${category.name} already exists, skipping...`);
+                parentCategory = existingParent.docs[0];
+            }
+
+            for (const subcategory of category.subcategories || []) {
+                // Check if subcategory already exists
+                const existingSubcategory = await payload.find({
+                    collection: "categories",
+                    where: {
+                        AND: [
+                            {
+                                slug: {
+                                    equals: subcategory.slug
+                                }
+                            },
+                            {
+                                parent: {
+                                    equals: parentCategory.id
+                                }
+                            }
+                        ]
+                    }
+                });
+
+                if (existingSubcategory.docs.length === 0) {
+                    console.log(`Creating subcategory: ${subcategory.name}`);
+                    await payload.create({
+                        collection: "categories",
+                        data: {
+                            name: subcategory.name,
+                            slug: subcategory.slug,
+                            color: "#1e964c",
+                            parent: parentCategory.id,
+                        },
+                    });
+                } else {
+                    console.log(`Subcategory ${subcategory.name} already exists, skipping...`);
+                }
+            }
         }
+        console.log("Seeding completed successfully!");
+    } catch (error) {
+        console.error("Error during seeding process:", error);
+        process.exit(1);
     }
 }
 
-await seed();
-process.exit(0);
+// Handle process events for graceful shutdown
+process.on('SIGTERM', () => {
+    console.log('Received SIGTERM. Performing graceful shutdown...');
+    process.exit(0);
+});
+
+process.on('SIGINT', () => {
+    console.log('Received SIGINT. Performing graceful shutdown...');
+    process.exit(0);
+});
+
+// Run the seed function
+seed()
+    .then(() => {
+        console.log('Seeding process finished, exiting...');
+        process.exit(0);
+    })
+    .catch((error) => {
+        console.error('Fatal error during seeding:', error);
+        process.exit(1);
+    });

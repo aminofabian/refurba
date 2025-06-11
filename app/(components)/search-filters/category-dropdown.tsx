@@ -1,6 +1,5 @@
 "use client"
 import { Button } from "@/components/ui/button";
-import { Category } from "@/payload-types";
 import { CustomCategory } from "@/lib/types";
 import {
     DropdownMenu,
