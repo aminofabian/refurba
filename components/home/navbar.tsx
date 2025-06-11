@@ -1,3 +1,5 @@
+'use client';
+
 import Logo from './logo';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
