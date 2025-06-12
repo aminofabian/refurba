@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
-import { Noto_Sans } from "next/font/google";
+import { Josefin_Sans, Space_Mono } from 'next/font/google'
 import "./globals.css";
+import { TRPCReactProvider } from "@/trpc/client";
 
-const notoSans = Noto_Sans({
-  weight: ['300', '400', '500', '700', '900'],
-  subsets: ["latin"],
-  variable: "--font-noto-sans",
-});
+const josefin_sans = Josefin_Sans({
+  subsets: ['latin'], display: 'swap', weight: ['100', '200', '300', '400', '500', '600', '700'],
+  variable: '--font-josefin-sans'
+})
+
+const space_mono = Space_Mono({
+  subsets: ['latin'], display: 'swap', weight: ['400', '700'],
+  variable: '--font-space-mono'
+})
 
 export const metadata: Metadata = {
   title: "Refurba",
@@ -20,8 +25,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${notoSans.variable} font-noto-sans min-h-screen`}>
+      <body className={`${josefin_sans.variable} ${space_mono.variable} min-h-screen`}>
+        <TRPCReactProvider>
         {children}
+        </TRPCReactProvider>
       </body>
     </html>
   );

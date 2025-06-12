@@ -25,8 +25,8 @@ function MobileNavItem({ href, children, icon: Icon, isActive }: NavItemProps & 
             href={href}
             className={`flex flex-col items-center justify-center p-2 ${
                 isActive 
-                    ? 'text-brand' 
-                    : 'text-gray-500'
+                    ? 'text-[#294a54]' 
+                    : 'text-[#657b7c]'
             }`}
         >
             <Icon className="h-6 w-6" />
@@ -43,14 +43,14 @@ function DesktopNavItem({ href, children, isActive }: NavItemProps) {
                 relative px-5 py-2 font-medium transition-all duration-200
                 text-sm uppercase tracking-wide group/nav-item
                 ${isActive 
-                    ? 'text-brand' 
-                    : 'text-gray-600 hover:text-brand'
+                    ? 'text-[#294a54]' 
+                    : 'text-[#657b7c] hover:text-[#294a54]'
                 }
             `}
         >
             {/* Border Layer */}
             <div 
-                className={`absolute inset-0 ${isActive ? 'bg-brand/20' : 'bg-gray-200'}`}
+                className={`absolute inset-0 ${isActive ? 'bg-[#294a54]/20' : 'bg-gray-200'}`}
                 style={{
                     clipPath: 'polygon(90% 0, 100% 35%, 100% 100%, 10% 100%, 0 65%, 0 0)'
                 }}
@@ -118,10 +118,10 @@ function Navbar() {
                                             relative px-6 py-2 h-10 text-sm font-bold uppercase tracking-wide
                                             transition-all duration-200 ease-in-out
                                             bg-white overflow-visible cursor-pointer
-                                            hover:text-brand hover:bg-green-50
-                                            hover:shadow-[0_0_15px_rgba(30,150,76,0.3)]
+                                            hover:text-[#294a54] hover:bg-[#294a54]/5
+                                            hover:shadow-[0_0_15px_rgba(41,74,84,0.3)]
                                             -inset-[1.5px] flex items-center justify-center
-                                            text-gray-700
+                                            text-[#657b7c]
                                         "
                                         style={{
                                             clipPath: 'polygon(92% 0, 100% 25%, 100% 100%, 8% 100%, 0% 75%, 0 0)'
@@ -135,18 +135,18 @@ function Navbar() {
                                 <div className="relative group/sell">
                                     {/* Border Layer */}
                                     <div 
-                                        className="absolute inset-0 bg-brand"
+                                        className="absolute inset-0 bg-[#294a54]"
                                         style={{
                                             clipPath: 'polygon(92% 0, 100% 25%, 100% 100%, 8% 100%, 0% 75%, 0 0)'
                                         }}
                                     />
                                     <div 
                                         className="
-                                            relative px-6 py-2 h-10 text-sm font-bold uppercase tracking-wide border-2 border-brand bg-slate-100
+                                            relative px-6 py-2 h-10 text-sm font-bold uppercase tracking-wide border-2 border-[#294a54] bg-slate-100
                                             transition-all duration-200 ease-in-out
-                                            bg-brand overflow-visible cursor-pointer
-                                            group-hover/sell:bg-white group-hover/sell:text-brand
-                                            hover:shadow-[0_0_15px_rgba(30,150,76,0.3)]
+                                            bg-[#294a54] overflow-visible cursor-pointer text-[#657b7c]
+                                            group-hover/sell:bg-white group-hover/sell:text-[#294a54]
+                                            hover:shadow-[0_0_15px_rgba(41,74,84,0.3)]
                                             -inset-[1.5px] flex items-center justify-center
                                         "
                                         style={{
@@ -181,7 +181,7 @@ function Navbar() {
             {/* Mobile Action Button */}
             <div className="md:hidden fixed bottom-20 right-4 z-50">
                 <Button 
-                    className="rounded-full w-14 h-14 bg-brand text-white shadow-lg flex items-center justify-center"
+                    className="rounded-full w-14 h-14 bg-[#294a54] text-white shadow-lg flex items-center justify-center"
                 >
                     <Menu className="h-6 w-6" />
                 </Button>
